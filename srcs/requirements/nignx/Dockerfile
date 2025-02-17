@@ -22,4 +22,4 @@ RUN mkdir -p /run/nginx
 EXPOSE 443
 
 # Start Nginx
-CMD ["nginx", "-g", "deamon off;"]
+CMD ["nginx", "-g", "daemon off;"]
