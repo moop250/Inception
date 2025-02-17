@@ -25,16 +25,16 @@ services:
     env_file:
       - .env
 
-#  mariadb:
-#    container_name: mariadb
-#    build: ./requirements/mariadb
-#    volumes:
-#      - mariadb_data:/var/lib/mysql
-#    networks:
-#      - network
-#    restart: always
-#    env_file:
-#      - .env
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - network
+    restart: always
+    env_file:
+      - .env
 
     #volumes:
     #  wordpress_data:
