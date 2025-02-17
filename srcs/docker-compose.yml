@@ -1,16 +1,29 @@
-version: '3'
+version: '3.8'
 
 services:
   nginx:
     container_name: nginx
     build: ./requirements/nginx
-    ports: 443
+    ports:
+      - 443:443
     volumes:
-      - wordpress_data:/var/www/html
+      - /home/hlibine/data/wordpress:/var/www/html
     networks:
       - network
     restart: always
 
+    wordpress:
+      container_name: wordpress
+      build: ./requirements/wordpress
+      depends_on:
+        - mariadb
+      volumes:
+        - /home/hlibine/data/wordpress:/var/www/html
+      networks:
+          - network
+      restart: always
+      env_file:
+        - .env
 
 #  mariadb:
 #    container_name: mariadb
@@ -23,14 +36,14 @@ services:
 #    env_file:
 #      - .env
 
-    volumes:
-      wordpress_data:
-        driver: local
-        driver_opts:
-          type: none
-          device: /home/hlibine/data/wordpress
-          o: bind
+    #volumes:
+    #  wordpress_data:
+    #    driver: local
+    #    driver_opts:
+    #      type: none
+    #      device: /home/hlibine/data/wordpress
+    #      o: bind
 
-    networks:
-      network:
-        driver: bridge
+networks:
+  network:
+  driver: bridge
