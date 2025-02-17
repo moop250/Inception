@@ -12,18 +12,18 @@ services:
       - network
     restart: always
 
-    wordpress:
-      container_name: wordpress
-      build: ./requirements/wordpress
-      depends_on:
-        - mariadb
-      volumes:
-        - /home/hlibine/data/wordpress:/var/www/html
-      networks:
-          - network
-      restart: always
-      env_file:
-        - .env
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    depends_on:
+      - mariadb
+    volumes:
+      - /home/hlibine/data/wordpress:/var/www/html
+    networks:
+        - network
+    restart: always
+    env_file:
+      - .env
 
 #  mariadb:
 #    container_name: mariadb
