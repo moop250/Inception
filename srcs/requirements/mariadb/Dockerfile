@@ -14,6 +14,7 @@ EXPOSE 3306
 
 COPY ./tools/mariadb.sh /usr/local/bin
 COPY ./conf/wordpress.sql /usr/local/bin
+COPY conf/mariadb.conf /etc/my.cnf.d/mariadb-server.cnf
 
 RUN chmod +x /usr/local/bin/mariadb.sh
 RUN chmod +x /usr/local/bin/wordpress.sql

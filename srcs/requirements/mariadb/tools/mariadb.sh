@@ -11,7 +11,8 @@ if [ -d "/var/lib/mysql/$MYSQL_DATABASE" ]; then
     echo "Database already exists"
 else
     # Secure MariaDB installation using environment variables
-    mysql_secure_installation <<EOF
+    mysql_secure_installation << EOF
+
 Y
 $MYSQL_ROOT_PASSWORD
 $MYSQL_ROOT_PASSWORD
