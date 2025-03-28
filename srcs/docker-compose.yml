@@ -7,42 +7,53 @@ services:
     ports:
       - 443:443
     volumes:
-      - /home/hlibine/data/wordpress:/var/www/html
+      - wordpress_data:/var/www/html
     networks:
       - network
     restart: always
 
-  wordpress:
-    container_name: wordpress
-    build: ./requirements/wordpress
-    depends_on:
-      - mariadb
-    volumes:
-      - /home/hlibine/data/wordpress:/var/www/html
-    networks:
-        - network
-    restart: always
-    env_file:
-      - .env
+    #  wordpress:
+    #    container_name: wordpress
+    #    build: ./requirements/wordpress
+    #    depends_on:
+    #      - mariadb
+    #    ports:
+    #      - 9000:9000
+    #    volumes:
+    #      - wordpress_data:/var/www/html
+    #    networks:
+    #        - network
+    #    restart: always
+    #    env_file:
+    #      - .env
 
   mariadb:
-    container_name: mariadb
-    build: ./requirements/mariadb
-    volumes:
-      - /home/hlibine/data/wordpress_db:/var/lib/mysql
-    networks:
-      - network
-    restart: always
-    env_file:
-      - .env
+     container_name: mariadb
+     build: ./requirements/mariadb
+     ports:
+       - 3306:3306
+     volumes:
+       - mariadb_data:/var/lib/mysql
+     networks:
+       - network
+     restart: always
+     env_file:
+       - .env
 
-    #volumes:
-    #  wordpress_data:
-    #    driver: local
-    #    driver_opts:
-    #      type: none
-    #      device: /home/hlibine/data/wordpress
-    #      o: bind
+volumes:
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/hlibine/data/wordpress
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/hlibine/data/mariadb
+
 
 networks:
   network:

@@ -1,14 +1,17 @@
-FROM debian:buster
+FROM debian:bookworm
 
+# Update container and install mariadb
+RUN apt update -y && apt upgrade -y
+RUN apt install -y mariadb-server
 
-RUN apt-get update -y && apt-get -y install mariadb-server \
-											mariadb-client
+# Copy the setup script and give the container permission to execute it
+COPY tools/mariadb_setup.sh /bin
+RUN chmod 755 /bin/mariadb_setup.sh
 
-COPY ./conf/mariadb.conf /etc/mysql/mariadb.conf.d/50-server.cnf
+# Copy the config file over
+COPY conf/mariadb.comf /etc/mysql/mariadb.conf.d/50-server.cnf
 
+# Open the port
+EXPOSE 3306
 
-COPY ./tools/mariadb.sh /usr/local/bin/mariadb.sh
-
-RUN chmod +x /usr/local/bin/mariadb.sh
-
-CMD ["/usr/local/bin/mariadb.sh"]
+CMD ["/bin/mariadb_setup.sh"]

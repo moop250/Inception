@@ -1,24 +1,24 @@
-FROM debian:buster
+FROM debian:bookworm
 
-# Install required programs
-RUN	apt-get update
-RUN	apt-get install -y nginx \
-						openssl
+# Update container and install nginx and openssl
+RUN	apt update -y && apt upgrade -y
+RUN	apt install -y nginx \
+					openssl
 
-# Nginx ssl
+# Use openssl to generate an ssl certificate for ngnix to use
 RUN mkdir /etc/nginx/ssl
 RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
 		-out /etc/nginx/ssl/hlibine.crt \
 		-keyout /etc/nginx/ssl/hlibine.key \
 		-subj "/C=CH/ST=Vaud/L=Lausanne/O=42 School/OU=hlibine/CN=hlibine/"
 
-# Copy the config over
+# Copy the ngnix config over
 COPY ./conf/nginx.conf /etc/nginx/conf.d
 
 # make a directory for nginx
 RUN mkdir -p /run/nginx
 
-# Expose the port
+# Expose the https port
 EXPOSE 443
 
 # Start Nginx
