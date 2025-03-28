@@ -9,7 +9,7 @@ COPY tools/mariadb_setup.sh /bin
 RUN chmod 755 /bin/mariadb_setup.sh
 
 # Copy the config file over
-COPY conf/mariadb.comf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY conf/mariadb.conf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 # Open the port
 EXPOSE 3306
