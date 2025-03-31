@@ -1,9 +1,10 @@
 FROM debian:bookworm
 
 # Update container and install nginx and openssl
-RUN	apt update -y && apt upgrade -y
-RUN	apt install -y nginx \
-					openssl
+RUN	apt update -y \
+		&& apt upgrade -y \
+		&& apt install -y nginx \
+							openssl
 
 # Use openssl to generate an ssl certificate for ngnix to use
 RUN mkdir /etc/nginx/ssl
