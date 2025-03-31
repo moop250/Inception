@@ -43,5 +43,34 @@ define HEADER
                             █████████████████████               ██
                                 ████████████████████       ▓██
                                        █████████████████ 
-endif
+endef
+export HEADER
 
+$(NAME): all
+
+all:
+	@printf "$$HEADER\n\n"
+	@printf "Creating directories\n"
+	@mkdir -p "/home/hlibine/data/wordpress"
+	@mkdir -p "/home/hlibine/data/mariadb"
+	@printf "compose up"
+	@docker compose -f srcs/docker-compose.yml up -d --build
+
+up:
+	@docker compose -f srcs/docker-compose.yml up -d --build
+
+down:
+	@docker compose -f srcs/docker-compose.yml down
+
+clean:
+	@docker compose -f srcs/docker-compose.yml down -v
+	@docker compose -f srcs/docker-compose.yml stop
+	@docker volume rm -f 'srcs_mariadb_data'
+	@docker volume rm -f 'srcs_wordpress_data'
+	@sudo rm -rf "/home/hlibine/data/wordpress"
+	@sudo rm -rf "/home/hlibine/data/mariadb"
+
+fclean: clean
+	@docker system prune -af
+
+.PHONEY: all up down clean fclean
