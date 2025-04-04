@@ -3,7 +3,8 @@ FROM debian:bookworm
 # Update container and install mariadb
 RUN apt update -y \
 		&& apt upgrade -y \
-		&& apt install -y mariadb-server
+		&& apt install -y mariadb-server \
+		&& apt clean
 
 # Copy the setup script and give the container permission to execute it
 COPY tools/mariadb_setup.sh /usr/bin

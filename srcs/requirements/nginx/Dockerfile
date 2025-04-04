@@ -4,7 +4,9 @@ FROM debian:bookworm
 RUN	apt update -y \
 		&& apt upgrade -y \
 		&& apt install -y nginx \
-							openssl
+							openssl \
+		&& apt clean
+
 
 # Use openssl to generate an ssl certificate for ngnix to use
 RUN mkdir /etc/nginx/ssl

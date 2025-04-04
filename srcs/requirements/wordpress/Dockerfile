@@ -8,6 +8,7 @@ RUN apt update -y \
 					php8.2-fpm \
 					php-mysql \
 					curl \
+			&& apt clean \
 # Download the WP CLI
 			&& curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
 			&& chmod +x wp-cli.phar \
@@ -21,7 +22,9 @@ WORKDIR /var/www/wordpress
 
 # Copy the setup script
 COPY /tools/wordpress_setup.sh /usr/bin
-RUN chmod 755 /usr/bin/wordpress_setup.sh
+RUN chmod +x /usr/bin/wordpress_setup.sh
+
+WORKDIR /var/www/html/
 
 EXPOSE 9000
 

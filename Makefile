@@ -62,6 +62,8 @@ up:
 down:
 	@docker compose -f srcs/docker-compose.yml down
 
+re: fclean all
+
 clean:
 	@docker compose -f srcs/docker-compose.yml down -v
 	@docker compose -f srcs/docker-compose.yml stop
@@ -73,4 +75,4 @@ clean:
 fclean: clean
 	@docker system prune -af
 
-.PHONEY: all up down clean fclean
+.PHONEY: all up down re clean fclean
