@@ -8,6 +8,7 @@ RUN apt update -y \
 					php8.2-fpm \
 					php-mysql \
 					curl \
+					php-redis \
 			&& apt clean \
 # Download the WP CLI
 			&& curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
