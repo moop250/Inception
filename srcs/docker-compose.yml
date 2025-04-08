@@ -30,8 +30,6 @@ services:
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
-    #ports:
-    #  - 3306:3306
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
@@ -57,6 +55,14 @@ services:
     env_file:
       - .env
 
+  static-page:
+    container_name: static-page
+    build: ./requirements/bonus/static_page
+    volumes:
+      - wordpress_data:/var/www/html
+    depends_on:
+      - nginx
+
 volumes:
   wordpress_data:
     driver: local
@@ -64,6 +70,7 @@ volumes:
       type: none
       o: bind
       device: /home/hlibine/data/wordpress
+
   mariadb_data:
     driver: local
     driver_opts:
