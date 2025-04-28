@@ -1,11 +1,10 @@
-FROM debian:bookworm
+FROM alpine:3.20.6
 
 # Update container and install nginx and openssl
-RUN	apt update -y \
-		&& apt upgrade -y \
-		&& apt install -y nginx \
-							openssl \
-		&& apt clean
+RUN	apk update \
+		&& apk add --no-cache nginx \
+					openssl \
+		&& adduser -D -g 'www' www
 
 
 # Use openssl to generate an ssl certificate for ngnix to use
@@ -16,7 +15,8 @@ RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
 		-subj "/C=CH/ST=Vaud/L=Lausanne/O=42 School/OU=hlibine/CN=hlibine/"
 
 # Copy the ngnix config over
-COPY ./conf/nginx.conf /etc/nginx/conf.d
+COPY ./conf/nginx.conf /etc/nginx/nginx.conf
+COPY ./tools/entrypoint.sh /usr/bin/
 
 # make a directory for nginx
 RUN mkdir -p /run/nginx
@@ -25,4 +25,4 @@ RUN mkdir -p /run/nginx
 EXPOSE 443
 
 # Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["/bin/sh", "/usr/bin/entrypoint.sh"]
