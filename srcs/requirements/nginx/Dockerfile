@@ -6,6 +6,7 @@ RUN	apk update \
 					openssl \
 		&& adduser -D -g 'www' www
 
+RUN mkdir /www && chown -R www:www /var/lib/nginx && chown -R www:www /www
 
 # Use openssl to generate an ssl certificate for ngnix to use
 RUN mkdir /etc/nginx/ssl
