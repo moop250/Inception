@@ -16,7 +16,7 @@ RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
 		-subj "/C=CH/ST=Vaud/L=Lausanne/O=42 School/OU=hlibine/CN=hlibine/"
 
 # Copy the ngnix config over
-COPY ./conf/nginx.conf /etc/nginx/nginx.conf
+COPY ./conf/nginx.conf /etc/nginx/http.d/
 COPY ./tools/entrypoint.sh /usr/bin/
 
 # make a directory for nginx
