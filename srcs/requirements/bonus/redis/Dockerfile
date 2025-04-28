@@ -1,9 +1,8 @@
-FROM debian:bookworm
+FROM alpine:3.20.6
 
-RUN apt update -y \
-		&& apt upgrade -y \
-		&& apt install -y redis \
-		&& apt clean
+RUN apk update \
+		&& apk upgrade \
+		&& apk add --no-cache redis
 
 COPY tools/redis_setup.sh /usr/bin/redis_setup.sh
 

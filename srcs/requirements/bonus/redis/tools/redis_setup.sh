@@ -14,4 +14,5 @@ else
 
 fi
 
-redis-server --protected-mode no
+echo "launching redis"
+exec redis-server --protected-mode no
