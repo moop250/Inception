@@ -1,20 +1,22 @@
-FROM debian:bookworm
+FROM alpine:3.20.6
 
 # Update container and install mariadb
-RUN apt update -y \
-		&& apt upgrade -y \
-		&& apt install -y mariadb-server \
-		&& apt clean
+RUN apk update \
+		&& apk upgrade \
+		&& apk add --no-cache mariadb \
+							mariadb-client \
+		&& adduser -D -g 'www' www
 
 # Copy the setup script and give the container permission to execute it
-COPY tools/mariadb_setup.sh /usr/bin
+COPY tools/mariadb_setup.sh /usr/bin/mariadb_setup.sh
 RUN chmod 755 /usr/bin/mariadb_setup.sh
 
-# Copy the config file over
-COPY conf/mariadb.conf /etc/mysql/mariadb.conf.d/50-server.cnf
+RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
+
+RUN sed -i '/skip-networking/d' /etc/my.cnf.d/mariadb-server.cnf
 
 # Open the port
 EXPOSE 3306
 
 # Launch the start script
-CMD ["/bin/mariadb_setup.sh"]
+ENTRYPOINT ["sh", "/usr/bin/mariadb_setup.sh"]
