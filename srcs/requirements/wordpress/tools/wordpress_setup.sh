@@ -7,6 +7,7 @@ if [ -f wp-config.php ]
 then
 	echo "Wordpress already installed"
 else
+	echo "Installing and configuring wordpress"
 # autofill wp startup fields
 	wp core download --allow-root
 	wp config create --allow-root --dbname=$SQL_DATABASE --dbuser=$SQL_USER --dbpass=$SQL_PASSWORD --dbhost=$DB_HOST --skip-check
@@ -15,14 +16,12 @@ else
 
 # Bonus
 
+	echo "Installing and setting up the redis-cache plugin"
 	wp config set WP_REDIS_HOST redis --allow-root
-	wp config set WP_REDIS_PORT 6379 --raw --allow-root
 	wp config set WP_CACHE_KEY_SALT $DOMAIN_NAME --allow-root
-	wp config set WP_REDIS_CLIENT phpredis --allow-root
 	wp plugin install redis-cache --activate --allow-root
 	wp plugin update --all --allow-root
 	wp redis enable --allow-root
-	
 fi
 
 # launch php-fpm
