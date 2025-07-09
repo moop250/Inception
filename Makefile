@@ -51,8 +51,8 @@ $(NAME): all
 all:
 	@printf "$$HEADER\n\n"
 	@printf "Creating directories\n"
-	@mkdir -p "~/data/wordpress"
-	@mkdir -p "~/data/mariadb"
+	@mkdir -p ~/data/wordpress
+	@mkdir -p ~/data/mariadb
 	@printf "compose up"
 	@docker compose -f srcs/docker-compose.yml up -d --build
 
