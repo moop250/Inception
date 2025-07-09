@@ -69,14 +69,14 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/hlibine/data/wordpress
+      device: ~/data/wordpress
 
   mariadb_data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/hlibine/data/mariadb
+      device: ~/data/mariadb
 
 
 networks:
