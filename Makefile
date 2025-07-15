@@ -56,8 +56,7 @@ $(NAME): all
 all:
 	@printf "$$HEADER\n\n"
 	@printf "Creating directories\n"
-	@mkdir -p ~/data/wordpress
-	@mkdir -p ~/data/mariadb
+	@mkdir -p $(VOLUMES)
 	@printf "compose up"
 	@docker compose -f srcs/docker-compose.yml up -d --build
 
@@ -74,8 +73,7 @@ clean:
 	@docker compose -f srcs/docker-compose.yml stop
 	@docker volume rm -f 'srcs_mariadb_data'
 	@docker volume rm -f 'srcs_wordpress_data'
-	@sudo rm -rf "~/data/wordpress"
-	@sudo rm -rf "~/data/mariadb"
+	@rm -rf $(VOLUMES)
 
 fclean: clean
 	@docker system prune -af
