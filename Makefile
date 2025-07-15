@@ -46,6 +46,11 @@ define HEADER
 endef
 export HEADER
 
+HOME_VOL = ~/data
+
+VOLUMES = $(HOME_VOL)/mariadb \
+					$(HOME_VOL)/wordpress \
+
 $(NAME): all
 
 all:
