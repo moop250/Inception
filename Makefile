@@ -73,7 +73,7 @@ clean:
 	@docker compose -f srcs/docker-compose.yml stop
 	@docker volume rm -f 'srcs_mariadb_data'
 	@docker volume rm -f 'srcs_wordpress_data'
-	@rm -rf $(VOLUMES)
+	@sudo rm -rf $(VOLUMES)
 
 fclean: clean
 	@docker system prune -af
