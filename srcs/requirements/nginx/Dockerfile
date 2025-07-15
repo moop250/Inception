@@ -1,4 +1,4 @@
-FROM alpine:3.20.6
+FROM alpine:3.22.0
 
 # Update container and install nginx and openssl
 RUN	apk update \
