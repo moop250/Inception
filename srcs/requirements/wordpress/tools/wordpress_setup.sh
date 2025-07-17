@@ -1,14 +1,5 @@
 #!/bin/bash
 
-wait_for_mariadb() {
-	echo "Waiting for MariaDB to be ready..."
-	while ! mariadb -h "$DB_HOST" -u "$SQL_USER" -p"$SQL_PASSWORD" -e "SELECT 1;" >/dev/null 2>&1; do
-		echo "MariaDB is unavailable - sleeping"
-		sleep 1
-	done
-	echo "MariaDB is up - continuing with WordPress setup"
-}
-
 # let mdb_init.sh finish
 sleep 5
 
@@ -17,7 +8,6 @@ then
 	echo "Wordpress already installed"
 else
 	echo "Installing and configuring wordpress"
-	wait_for_mariadb
 # autofill wp startup fields
 	wp core download --allow-root
 	wp config create --allow-root --dbname=$SQL_DATABASE --dbuser=$SQL_USER --dbpass=$SQL_PASSWORD --dbhost=$DB_HOST --skip-check
