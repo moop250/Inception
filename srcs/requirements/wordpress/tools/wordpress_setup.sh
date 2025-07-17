@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # let mdb_init.sh finish
-while ! mysql -u ${SQL_USER} -h ${DB_HOST} -p${SQL_PASSWORD} ${SQL_DATABASE} -e "SELECT 1;" >/dev/null 2>&1; do
+while ! mysql -u ${SQL_USER} -h ${SQL_HOST} -p${SQL_ROOT_PASSWORD} ${SQL_DATABASE} -e "SELECT 1;" >/dev/null 2>&1; do
 	echo "Waiting for MariaDB to be ready..."
 	sleep 1
 done
@@ -13,7 +13,7 @@ else
 	echo "Installing and configuring wordpress"
 # autofill wp startup fields
 	wp core download --allow-root
-	wp config create --allow-root --dbname=$SQL_DATABASE --dbuser=$SQL_USER --dbpass=$SQL_PASSWORD --dbhost=$DB_HOST --skip-check
+	wp config create --allow-root --dbname=$SQL_DATABASE --dbuser=$SQL_USER --dbpass=$SQL_PASSWORD --dbhost=$SQL_HOST --skip-check
 	wp core install --allow-root --url=$WP_URL --title=$WP_TITLE --admin_user=$WP_ADMIN --admin_password=$WP_ADMIN_PASS --admin_email=$WP_ADMIN_EMAIL --skip-email
 	wp user create --allow-root $WP_USER $WP_EMAIL --user_pass=$WP_PASS --role='contributor'
 
