@@ -1,7 +1,10 @@
 #!/bin/bash
 
 # let mdb_init.sh finish
-sleep 5
+while ! mysql -u ${SQL_USER} -h ${DB_HOST} -p${SQL_PASSWORD} ${SQL_DATABASE} -e "SELECT 1;" >/dev/null 2>&1; do
+	echo "Waiting for MariaDB to be ready..."
+	sleep 1
+done
 
 if [ -f wp-config.php ]
 then

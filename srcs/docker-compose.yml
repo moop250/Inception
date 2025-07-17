@@ -14,8 +14,7 @@ services:
     container_name: wordpress
     build: ./requirements/wordpress
     depends_on:
-      mariadb:
-        condition: service_healthy
+      - mariadb
     ports:
       - 9000:9000
     volumes:
@@ -29,11 +28,6 @@ services:
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "--password=${SQL_ROOT_PASSWORD}"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
