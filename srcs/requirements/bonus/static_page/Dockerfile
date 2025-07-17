@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.22.0
 
 COPY srcs/landing.html landing.html
 COPY srcs/style.css style.css
