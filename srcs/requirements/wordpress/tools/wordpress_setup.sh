@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# let mdb_init.sh finish
-while ! mysql -u ${SQL_USER} -h ${SQL_HOST} -p${SQL_ROOT_PASSWORD} ${SQL_DATABASE} -e "SELECT 1;" >/dev/null 2>&1; do
-	echo "Waiting for MariaDB to be ready..."
-	sleep 1
-done
-
 if [ -f wp-config.php ]
 then
 	echo "Wordpress already installed"
