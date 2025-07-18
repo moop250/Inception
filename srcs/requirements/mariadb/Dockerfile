@@ -1,4 +1,4 @@
-FROM alpine:3.20.6
+FROM alpine:3.22
 
 # Update container and install mariadb
 RUN apk update \

@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# while ! mysqladmin -u ${SQL_USER} -h ${SQL_HOST} -p${SQL_PASSWORD} -e "USE $SQL_DATABASE"; do
-# 	echo "Waiting for Database..."
-# 	sleep 1
-# done
-
 while ! mysqladmin ping -h ${SQL_HOST} --silent; do
 	echo "Waiting for Database..."
 	sleep 1
