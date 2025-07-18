@@ -4,7 +4,7 @@ FROM debian:bookworm
 RUN apt update -y \
 			&& apt upgrade -y \
 			&& apt install -y \
-					mysql-client \
+					default-mysql-client \
 					php \
 					php8.2-fpm \
 					php-mysql \
